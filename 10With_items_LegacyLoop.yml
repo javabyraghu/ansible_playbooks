@@ -1,0 +1,36 @@
+## using Legacy Loop concetp using with_items
+---
+- name: Install Multiple Software Packages
+  hosts: your_remote_host
+  gather_facts: false
+  become: true
+
+  vars:
+    software_packages:
+      - name: wget
+        state: present
+      - name: git
+        state: present
+      - name: tree
+        state: present
+      - name: vim
+        state: present
+
+  tasks:
+    - name: Install software packages
+      package:
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+      with_items: "{{ software_packages }}"
+      # Use the with_items concept to iterate over the software_packages variable
+
+    - name: Verify package installation
+      command: "{{ item.name }} --version"
+      register: package_version
+      with_items: "{{ software_packages }}"
+      # Verify the package installation by running the command with --version flag
+
+    - name: Display package versions
+      debug:
+        var: package_version.stdout_lines
+      # Print the output of the previous task, which contains the package versions

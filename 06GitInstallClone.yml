@@ -1,0 +1,26 @@
+##6. INSTALL GIT IF NOT EXIST, CLONE A REPOSITORY
+---
+- name: Install Git and Clone Repository
+  hosts: webservers
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Check if Git is installed
+      command: git --version
+      register: git_check
+      ignore_errors: true
+      # Check if Git is installed by running 'git --version' command
+
+    - name: Install Git
+      package:
+        name: git
+        state: present
+      when: git_check.rc != 0
+      # Install Git if it is not already installed
+
+    - name: Clone the repository
+      git:
+        repo: https://github.com/javabyraghu/maven-web-app.git
+        dest: /home/ansbile/
+      # Clone the repository from the specified URL to the destination directory

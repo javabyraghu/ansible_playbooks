@@ -1,0 +1,45 @@
+##5. INSTALL MAVEN SOFTWARE FOR HOST MACHINES BASED ON PACKAGE MANAGER TYPE.
+
+---
+- name: Install Maven
+  hosts: all
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Update apt cache (for Debian/Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_pkg_mgr == 'apt'
+      # Update the apt cache for Debian/Ubuntu systems
+
+    - name: Install Maven (for Debian/Ubuntu)
+      apt:
+        name: maven
+        state: present
+      when: ansible_pkg_mgr == 'apt'
+      # Install Maven using apt package manager on Debian/Ubuntu systems
+
+    - name: Install Maven (for Red Hat/CentOS)
+      yum:
+        name: maven
+        state: present
+      when: ansible_pkg_mgr == 'yum'
+      # Install Maven using yum package manager on Red Hat/CentOS systems
+
+    - name: Install Maven (for macOS)
+      homebrew:
+        name: maven
+        state: present
+      when: ansible_pkg_mgr == 'homebrew'
+      # Install Maven using Homebrew package manager on macOS
+
+    - name: Verify Maven installation
+      command: mvn --version
+      register: maven_version
+      # Verify the Maven installation by running 'mvn --version' command
+
+    - name: Display Maven version
+      debug:
+        var: maven_version.stdout_lines
+      # Print the output of the previous task, which contains the Maven version

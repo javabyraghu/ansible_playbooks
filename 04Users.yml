@@ -2,6 +2,7 @@
 ---
 - name: Manage users on remote host
   hosts: all
+  become: true
   gather_facts: false
 
   tasks:

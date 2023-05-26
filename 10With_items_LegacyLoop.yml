@@ -1,4 +1,4 @@
-## using Legacy Loop concetp using with_items
+## 10 using Legacy Loop concetp using with_items
 ---
 - name: Install Multiple Software Packages
   hosts: all
@@ -26,11 +26,13 @@
 
     - name: Verify package installation
       command: "{{ item.name }} --version"
-      register: package_version
+      register: command_output
       with_items: "{{ software_packages }}"
       # Verify the package installation by running the command with --version flag
 
     - name: Display package versions
       debug:
-        var: package_version.stdout_lines
-      # Print the output of the previous task, which contains the package versions
+        var: item.stdout
+      with_items: "{{ command_output.results }}"
+      # Print the stdout of the previous task, which contains the package versions
+

@@ -1,7 +1,7 @@
 ##7. INSTALL MULTIPLE SOFTWARE’S USING VARIABLES AND LOOPS CONCEPT
 ---
 - name: Install Packages with Loop
-  hosts: your_remote_host
+  hosts: all
   gather_facts: false
   become: true
 

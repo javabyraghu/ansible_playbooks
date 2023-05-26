@@ -1,7 +1,7 @@
 ## using Legacy Loop concetp using with_items
 ---
 - name: Install Multiple Software Packages
-  hosts: your_remote_host
+  hosts: all
   gather_facts: false
   become: true
 

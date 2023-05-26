@@ -1,0 +1,21 @@
+##2. CHANGE FILE PERMISSIONS(CHMOD) AND OWNER/GROUP DETAILS(CHOWN)
+---
+- name: Change file permission and owner details
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Change file permission
+      file:
+        path: /home/ansible/data.txt
+        mode: "0644"
+      # Change the file permission to 0644 (rw-r--r--)
+
+    - name: Change file owner
+      become: true
+      become_user: root
+      file:
+        path: /home/ansible/data.txt
+        owner: ansible
+        group: ansible
+      # Change the file owner to 'your_username' and group to 'your_groupname'

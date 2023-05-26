@@ -23,7 +23,7 @@
       yum:
         name: maven
         state: present
-      when: ansible_pkg_mgr == 'yum'
+      when: ansible_pkg_mgr == 'yum' || ansible_pkg_mgr == 'dnf'
       # Install Maven using yum package manager on Red Hat/CentOS systems
 
     - name: Install Maven (for macOS)

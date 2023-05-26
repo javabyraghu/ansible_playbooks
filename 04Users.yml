@@ -1,0 +1,26 @@
+4. CREATING NEW USER, ADDING EXISTED USER TO A GROUP, DELETE EXISTED USER
+---
+- name: Manage users on remote host
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Create a new user
+      user:
+        name: raghu
+        password: "{{ 'raghu' | password_hash('sha512') }}"
+        state: present
+      # Create a new user with the name 'new_user' and set the password
+
+    - name: Add an existing user to a group
+      user:
+        name: raghu
+        groups: ec2-user
+        append: yes
+      # Add the existing user 'existing_user' to the group 'group_name'
+
+    - name: Delete an existing user
+      user:
+        name: raghu
+        state: absent
+      # Delete the existing user 'existing_user' from the remote host

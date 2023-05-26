@@ -1,0 +1,21 @@
+#8. INSTALL HTTPD + COPY index.html + START SERVICE
+
+##Create index.html file in the location where our playbook is exist.
+##Create yml file with below content.
+
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install Httpd
+      yum:
+        name: httpd
+        state: present
+    - name: Copy index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+    - name: Start Httpd Server
+      service:
+        name: httpd
+        state: started

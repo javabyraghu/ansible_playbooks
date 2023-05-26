@@ -1,0 +1,32 @@
+##7. INSTALL MULTIPLE SOFTWARE’S USING VARIABLES AND LOOPS CONCEPT
+---
+- name: Install Packages with Loop
+  hosts: your_remote_host
+  gather_facts: false
+  become: true
+
+  vars:
+    packages_to_install:
+      - wget
+      - git
+      - tree
+      - vim
+
+  tasks:
+    - name: Install packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages_to_install }}"
+      # Use the loop concept to iterate over the packages_to_install variable
+
+    - name: Verify package installation
+      command: "{{ item }} --version"
+      loop: "{{ packages_to_install }}"
+      register: package_version
+      # Verify the package installation by running the command with --version flag
+
+    - name: Display package versions
+      debug:
+        var: package_version.stdout_lines
+      # Print the output of the previous task, which contains the package versions

@@ -1,0 +1,22 @@
+##3. Create Directory, rename and delete DIRECTORY
+---
+- name: Manage directories on remote host
+  hosts: webservers
+  gather_facts: false
+
+  tasks:
+    - name: Create a directory
+      file:
+        path: /home/ansible/raghu
+        state: directory
+      # Create a directory on the remote host
+
+    - name: Rename the directory
+      command: mv /home/ansible/raghu /home/ansible/new_info
+      # Rename the directory by executing the 'mv' command
+
+    - name: Delete the directory
+      file:
+        path: /home/ansible/new_info
+        state: absent
+      # Delete the renamed directory on the remote host

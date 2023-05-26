@@ -1,7 +1,7 @@
 ##9. SERVICE MODULE OPERATIONS START, STOP, ENABLE AND RESTART
 ---
 - name: Manage httpd service
-  hosts: your_remote_host
+  hosts: webservers
   gather_facts: false
   become: true
 

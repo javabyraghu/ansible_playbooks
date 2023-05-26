@@ -1,0 +1,32 @@
+##9. SERVICE MODULE OPERATIONS START, STOP, ENABLE AND RESTART
+---
+- name: Manage httpd service
+  hosts: your_remote_host
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Start httpd service
+      service:
+        name: httpd
+        state: started
+      # Start the httpd service
+
+    - name: Stop httpd service
+      service:
+        name: httpd
+        state: stopped
+      # Stop the httpd service
+
+    - name: Enable httpd service
+      service:
+        name: httpd
+        enabled: true
+      # Enable the httpd service to start on boot
+
+    - name: Restart httpd service
+      service:
+        name: httpd
+        state: restarted
+      # Restart the httpd service
+

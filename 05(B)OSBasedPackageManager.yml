@@ -1,0 +1,35 @@
+#Ansible playbook to install apache software Based on OS Family
+---
+- name: Install Apache HTTP Server
+  hosts: your_target_hosts
+  become: true
+
+  tasks:
+    - name: Update apt cache (for Debian/Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Apache HTTP Server (Debian/Ubuntu)
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Apache HTTP Server (CentOS/RHEL)
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family == 'RedHat'
+
+    - name: Start Apache service
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family == 'Debian'
+
+    - name: Start Apache service
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family == 'RedHat'

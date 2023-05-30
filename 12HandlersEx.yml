@@ -27,11 +27,11 @@
   handlers:
     - name: Start Apache
       service:
-        name: httpd
+        name: "{{package_name}}"
         state: started
         enabled: true
 
     - name: Restart Httpd
       service:
-        name: httpd
+        name: "{{package_name}}"
         state: restarted

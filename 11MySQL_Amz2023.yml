@@ -1,0 +1,19 @@
+## Installing MySQL database at Amazon Linux 2023
+---
+- name: Install MySQL on Red Hat
+  hosts: dbservers
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Install MySQL server
+      yum:
+        name: mariadb105-server
+        state: present
+
+    - name: Start MySQL service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    

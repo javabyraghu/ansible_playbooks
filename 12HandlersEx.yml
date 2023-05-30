@@ -1,0 +1,37 @@
+## This is example for Handlers using task notify example
+## We can run using --tags="copy" to see index.html modified concept and restart execution
+---
+- name: Using Handlers based on tasks execution
+  hosts: webservers
+  become: true
+  gather_facts: yes
+  vars:
+    package_name: httpd
+  tasks:
+    - name: install httpd
+      yum:
+        name: "{{package_name}}"
+        state: present
+      tags:
+        - install
+      notify: Start Apache
+
+    - name: Copy index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/
+      tags:
+        - copy
+      notify: Restart Httpd
+
+  handlers:
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Restart Httpd
+      service:
+        name: httpd
+        state: restarted

@@ -1,4 +1,4 @@
-#8. INSTALL HTTPD + COPY index.html + START SERVICE
+#7. INSTALL HTTPD + COPY index.html + START SERVICE
 
 ##Create index.html file in the location where our playbook is exist.
 ##Create yml file with below content.

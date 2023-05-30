@@ -1,0 +1,26 @@
+## Ansible Template : Jinja2 templating engine
+## create file: httpd_test.conf.j2 at Master machine
+## with 3 variable names using {{}} symbol for rendering
+---
+- name: Example Playbook
+  hosts: target_hosts
+  become: yes
+  vars:
+    template_var: "Hello, World!"
+  
+  tasks:
+    - name: Copy template file
+      template:
+        src: /home/ansible/httpd_test.conf.j2
+        dest: /etc/httpd/conf/httpd_test.conf
+        mode: 0744
+        owner: root
+        group: root
+      notify:
+        - Restart Service
+  
+  handlers:
+    - name: Restart Service
+      service:
+        name: httpd
+        state: restarted
